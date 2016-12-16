@@ -2,7 +2,7 @@
 
 * Report: https://joekrie.github.io/arduino-volume-detector
 * Slideshow: https://joekrie.github.io/arduino-volume-detector/slideshow
-* Code: [sketch.ino](sketch.ino)
+* Code: [volume-detector.ino](volume-detector.ino)
 
 To do:
 * Comment code

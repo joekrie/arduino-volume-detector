@@ -1,4 +1,8 @@
-# seis742-project
+# Arduino Volume Detector
+
+Report: https://joekrie.github.io/arduino-volume-detector/report
+Slideshow: https://joekrie.github.io/arduino-volume-detector/slideshow
+
 To do:
 * Comment code
 * Arduino tech specs

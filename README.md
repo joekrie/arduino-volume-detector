@@ -1,6 +1,6 @@
 # Arduino Volume Detector
 
-* Report: https://joekrie.github.io/arduino-volume-detector/report
+* Report: https://joekrie.github.io/arduino-volume-detector
 * Slideshow: https://joekrie.github.io/arduino-volume-detector/slideshow
 * Code: [sketch.ino](sketch.ino)
 

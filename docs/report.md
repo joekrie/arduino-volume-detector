@@ -14,7 +14,7 @@ The following processors were evaluated:
 | ATmega328P       | AVR             | no         | 8-bit     | Arduino Uno       |
 | ARM7TDMI         | Thumb           | yes        | 16-bit    |                   |
 | Intel Atom       | i386            | yes        | 32-bit    | Intel Edison      |
-| TI C55x DSP      | C55x            | yes        |           |                   |
+| TI C55x DSP      | C55x            | yes        | 16-bit    | TMDX5515eZDSP     |
 
 An important consideration for this project was ease of development. Hobby boards, such as the Raspberry Pi 2 B+ with a Cortex-A7, the Intel Edison with the Atom, and the Arduino Uno with the ATmega328P, provide a low barrier to entry. While it is important to ensure that your processor meets the requirements of the project, many of these processors I evaluated were plenty sufficient for my project. The overriding factor, therefore, was the board itself and the power usage. Both the Raspberry Pi and the Intel Edison have relatively powerful processors for embedded systems, and even have multiple cores for more bandwidth. 
 
@@ -72,11 +72,17 @@ peakToPeak = signalMax - signalMin;
 
 The system must listen to an microphone input loop, sample every 50 milliseconds and measure the peak to peak difference, then output the difference to various outputs. 
 
+![Software flowchart](software-flowchart.png)
+
 ## Hardware-Software Interface
+
+![Block diagram](block-diagram.png)
 
 ### Memory Map
 
-The program includes two modules, one called LiquidCrystal.h for the text display. and the other Wire.h for communicating with the DAC. 
+The program includes two modules, one called LiquidCrystal.h for the text display. and the other Wire.h for communicating with the DAC.
+
+![Memory map](memory-map.png)
 
 ### Bandwidth Estimate
 
@@ -97,3 +103,9 @@ According to the compiler, the program takes up 3,516 bytes of flash memory, and
 |               | Total     | 128 bits |
 
 The program will need at least 357 bits of SRAM, out of 2 kilobytes available.
+
+### Constraints
+
+Software can be constrained by the chosen hardware. For example, the number of times per second we can read the microphone signal depends on how long it takes to read each signal. This depends on, among other things, the clock speed. While it's not a practical contraint for this project, the 10 bits of resolution on the A/D converter could be a limiting factor in many projects that listen to sound. For example, standard audio CDs have a bit depth of 16 bits, and are sampled at 44,100 times per second. This A/D converter can read at about 10,000 times per second. 
+
+Being a hobby board, the designers of the Arduino Uno made a great effort to make the board easy to program and debug. Furthermore, being open source there are very few intellectual property concerns.

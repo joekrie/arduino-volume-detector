@@ -1,17 +1,17 @@
 #include <LiquidCrystal.h>
 #include <Wire.h>
 
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);  // tell Arduino which pins connect to text display
 
-const int sensorPin = A0;
-const int sampleWindow = 50;
-unsigned int sample;
+const int sensorPin = A0;  // mic is hooked up to A0 pin
+const int sampleWindow = 50;  // # of milliseconds per sample
+unsigned int sample;  // holds sample every iteration
 
 void setup() {
-  lcd.begin(16, 2);
-  Wire.begin();
-  pinMode(6, OUTPUT);
-  pinMode(7, OUTPUT);
+  lcd.begin(16, 2);  // initialize text display
+  Wire.begin();  // initialize DAC connection
+  pinMode(6, OUTPUT);  // pin 6 turns LED red
+  pinMode(7, OUTPUT);  // pin 7 turns LED green
 }
 
 void loop() {
@@ -21,10 +21,10 @@ void loop() {
   unsigned int signalMax = 0;
   unsigned int signalMin = 1024;
 
-  while (millis() - startMillis < sampleWindow) {
+  while (millis() - startMillis < sampleWindow) {  // sample window
     sample = analogRead(0);
 
-    if (sample < 1024)
+    if (sample < 1024)  // reject invalid readings
     {
       if (sample > signalMax)
       {
@@ -37,9 +37,9 @@ void loop() {
     }
   }
 
-  peakToPeak = signalMax - signalMin;
+  peakToPeak = signalMax - signalMin;  // what we care about is difference 
 
-  if (peakToPeak > 400) {
+  if (peakToPeak > 400) {  // turn LED red if volume above threshold
     digitalWrite(6, HIGH);
     digitalWrite(7, LOW);
   } else {
@@ -47,16 +47,16 @@ void loop() {
     digitalWrite(7, HIGH);
   }
 
-  int transmitValue = 2048 - (int)(peakToPeak * 2);
-  Wire.beginTransmission(0x60);
-  Wire.write(64);
-  Wire.write(transmitValue / 16);
-  Wire.write((transmitValue % 16) << 4);
+  int transmitValue = 2048 - (int)(peakToPeak * 2);  // value to send to DAC
+  Wire.beginTransmission(0x60);  // begin transmission to DAC
+  Wire.write(64);  // command to update DAC
+  Wire.write(transmitValue / 16);  // 8 most significant bits
+  Wire.write((transmitValue % 16) << 4);  // 4 least significant bits
   Wire.endTransmission();
 
   lcd.setCursor(0, 0);
-  lcd.print("        ");
+  lcd.print("        ");  // clear previous reading
   lcd.setCursor(0, 0);
-  lcd.print(peakToPeak);
+  lcd.print(peakToPeak);  // set text display to show volume
 }
 

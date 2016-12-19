@@ -4,7 +4,9 @@ This project is a volume detector component that gives the end user an indicatio
 * Warn workers in a loud workplace site when sound levels are too lound, warranting the need for hearing protection
 * Utility for the hearing impared, such as a baby monitor that gives a visual signal when a baby's volume reaches a certain threshold
 
-## Processor
+## Hardware Decisions
+
+### Processor
 
 The following processors were evaluated:
 
@@ -22,7 +24,7 @@ The TI C55x, on the other hand, is highly specialized for digital signal process
 
 The Arduino Uno provided a plenty powerful processor that even had a built in A/D converter. The Uno is powered by an [ATmega328P](http://www.atmel.com/devices/ATMEGA328P.aspx) processor from Amtel. The board can easily be powered by a battery. A potential downside to this processor could be thst it does not have accumulator instructions. The Arduino ecosystem has an immensive number of free resources and code snippets, largely due to the platform being open source and very popular.
 
-# DAC
+### DAC
 
 The chosen DAC is the MCP4725, which has a 12-bit resolution. It uses the I2C interface, which makes connecting to it easier because it is a standard with a lot of documentation.
 

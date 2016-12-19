@@ -5,24 +5,57 @@
 
   class: center, middle
 
-  # Title
+  # Volume Detector
 
   ---
 
-  # Agenda
+  # Function
 
-  1. Introduction
-  2. Deep-dive
-  3. ...
+  Volume detector - detects sound level and provides visual indications of audio level
 
   ---
 
-  # Introduction
+  # Potential uses
+
+  * Warn workers in a loud workplace site when sound levels are too lound, warranting the need for hearing protection
+  * Utility for the hearing impared, such as a baby monitor that gives a visual signal when a baby's volume reaches a certain threshold
+
+  ---
+
+  # Hardware
+
+  * Arduino Uno
+  * Amtel ATmega328P
+  * built-in 10-bit A/D converter
+  * MCP4725 12-bit DAC
+
+  ---
+
+  # Software
+
+  ```
+  while (millis() - startMillis < sampleWindow) {
+    sample = analogRead(0);
+
+    if (sample < 1024)
+    {
+      if (sample > signalMax)
+      {
+        signalMax = sample;
+      }
+      else if (sample < signalMin)
+      {
+        signalMin = sample;
+      }
+    }
+  }
+
+  peakToPeak = signalMax - signalMin;
+  ```
 
 </textarea>
 
 <script src="libs/remark.js"></script>
-
 <script>
   var slideshow = remark.create();
 </script>

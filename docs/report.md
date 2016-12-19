@@ -72,17 +72,19 @@ peakToPeak = signalMax - signalMin;
 
 The system must listen to an microphone input loop, sample every 50 milliseconds and measure the peak to peak difference, then output the difference to various outputs. 
 
-![Software flowchart](software-flowchart.png)
+![Software flowchart](img/software-flowchart.png)
 
 ## Hardware-Software Interface
 
-![Block diagram](block-diagram.png)
+### Block Diagram
+
+![Block diagram](img/block-diagram.png)
 
 ### Memory Map
 
 The program includes two modules, one called LiquidCrystal.h for the text display. and the other Wire.h for communicating with the DAC.
 
-![Memory map](memory-map.png)
+![Memory map](img/memory-map.png)
 
 ### Bandwidth Estimate
 
